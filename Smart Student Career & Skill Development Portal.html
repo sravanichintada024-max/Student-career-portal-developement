@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Student Career & Skill Development Portal</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f5f7fb;--card:#fff;--tx:#14213d;--mut:#5b6784;--pri:#3b5bdb;--acc:#12b886;--bd:#e1e6f0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1424;--card:#192038;--tx:#e8ecf8;--mut:#9aa6c6;--pri:#748ffc;--acc:#38d9a9;--bd:#2a3354}}
+:root[data-theme="dark"]{--bg:#0f1424;--card:#192038;--tx:#e8ecf8;--mut:#9aa6c6;--pri:#748ffc;--acc:#38d9a9;--bd:#2a3354}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+header{background:var(--card);border-bottom:1px solid var(--bd);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.nav{max-width:1000px;margin:auto;display:flex;gap:6px;align-items:center;padding:10px 14px;overflow-x:auto}
+.logo{font-weight:800;color:var(--pri);white-space:nowrap;margin-right:10px}
+.nav button{border:0;background:none;color:var(--mut);padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px;white-space:nowrap}
+.nav button.on{background:var(--pri);color:#fff}
+main{max-width:1000px;margin:auto;padding:18px 14px 50px}
+section{display:none}section.on{display:block}
+.hero{background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;border-radius:16px;padding:28px}
+.hero h1{margin:0 0 8px;font-size:clamp(22px,4vw,34px)}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:8px;padding:10px 16px;cursor:pointer;font-size:14px;text-decoration:none;display:inline-block}
+.hero .btn{background:#fff;color:#1b2a6b;margin:12px 8px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px;font-size:16px}.mut{color:var(--mut);font-size:13px}
+.tag{display:inline-block;background:var(--bg);border:1px solid var(--bd);border-radius:20px;padding:2px 9px;font-size:12px;margin:2px 3px 2px 0}
+.opt{display:block;width:100%;text-align:left;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:10px;margin:6px 0;cursor:pointer}
+.opt:hover{border-color:var(--pri)}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.chat{height:300px;overflow:auto;background:var(--bg);border-radius:10px;padding:10px;border:1px solid var(--bd)}
+.m{margin:6px 0;padding:8px 11px;border-radius:10px;max-width:85%;font-size:14px}
+.m.u{background:var(--pri);color:#fff;margin-left:auto}.m.b{background:var(--card);border:1px solid var(--bd)}
+input,select{width:100%;padding:10px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:14px}
+.row{display:flex;gap:8px;margin-top:8px}.row .btn{flex:none}
+.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--bd)}
+label.ck{display:flex;gap:8px;align-items:center;font-size:13px;margin-top:8px}label.ck input{width:auto}
+</style></head><body>
+<header><div class="nav"><span class="logo">🎓 SmartStudent</span>
+<button data-t="home" class="on">Home</button><button data-t="test">Skills Test</button><button data-t="careers">Careers</button><button data-t="courses">Courses</button><button data-t="jobs">Placements & Packages</button><button data-t="ai">AI Mentor</button></div></header>
+<main>
+<section id="home" class="on">
+<div class="hero"><h1>Find your skills. Choose your career. Get placed.</h1><p>Take the skills test, get AI career suggestions, learn from real free courses and prepare for placements.</p>
+<button class="btn" onclick="go('test')">Start Skills Test</button><button class="btn" onclick="go('courses')">Browse Courses</button></div>
+<div class="grid">
+<div class="card"><h3>🧪 Skills Test</h3><p class="mut">12 quick questions across Tech, Data, Design, Business and Core Engineering.</p></div>
+<div class="card"><h3>🧭 Career Suggestions</h3><p class="mut">Personalised roles, skills to learn and roadmap based on your result.</p></div>
+<div class="card"><h3>📚 Real Courses</h3><p class="mut">Links to genuine free courses (CS50, freeCodeCamp, NPTEL, Kaggle...). Track your progress.</p></div>
+<div class="card"><h3>💼 Placements</h3><p class="mut">Fresher roles, typical packages and a placement preparation checklist.</p></div>
+</div>
+<div class="card" style="margin-top:14px"><h3>Your progress</h3><div class="bar"><i id="pbar" style="width:0"></i></div><p class="mut" id="ptxt"></p></div>
+</section>
+
+<section id="test"><div class="card"><h3>Skills Test</h3><p class="mut" id="qn"></p><div class="bar"><i id="qb" style="width:0"></i></div><h3 id="q" style="margin-top:14px"></h3><div id="opts"></div></div>
+<div id="res"></div></section>
+
+<section id="careers"><h2>Career Suggestions</h2><p class="mut">Take the skills test for personalised picks, or explore every path below.</p><div id="topc"></div><div class="grid" id="cgrid"></div></section>
+
+<section id="courses"><h2>Courses</h2><p class="mut">These link to real external courses. Tick a course when you complete it.</p>
+<select id="cf" style="max-width:240px"></select><div class="grid" id="cogrid"></div></section>
+
+<section id="jobs"><h2>Placements, Jobs & Packages</h2>
+<div class="card"><h3>Typical fresher packages (India, indicative)</h3><p class="mut">Ranges vary by company, college and city. Check current offers on job sites before deciding.</p>
+<div class="tablewrap"><table><thead><tr><th>Role</th><th>Package (LPA)</th><th>Key skills</th></tr></thead><tbody id="ptab"></tbody></table></div></div>
+<div class="card" style="margin-top:12px"><h3>Find jobs & internships</h3>
+<a class="btn" href="https://internshala.com" target="_blank" rel="noopener">Internshala</a>
+<a class="btn" href="https://www.naukri.com/fresher-jobs" target="_blank" rel="noopener">Naukri Fresher</a>
+<a class="btn" href="https://www.linkedin.com/jobs" target="_blank" rel="noopener">LinkedIn Jobs</a>
+<a class="btn" href="https://unstop.com" target="_blank" rel="noopener">Unstop</a></div>
+<div class="card" style="margin-top:12px"><h3>Placement preparation checklist</h3><div id="chk"></div></div></section>
+
+<section id="ai"><h2>AI Mentor</h2><p class="mut">Ask about careers, resume, interviews, packages, or what to learn. (Rule-based assistant running in your browser.)</p>
+<div class="chat" id="chat"></div><div class="row"><input id="ai-in" placeholder="e.g. How do I become a data analyst?"><button class="btn" id="send">Send</button></div></section>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+let st={done:{},chk:{},res:null};
+try{const x=localStorage.getItem('ssp');if(x)st=Object.assign(st,JSON.parse(x))}catch(e){}
+const save=()=>{try{localStorage.setItem('ssp',JSON.stringify(st))}catch(e){}};
+function go(t){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===t));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));scrollTo(0,0)}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+
+const C={
+Tech:{role:'Software Developer',icon:'💻',pkg:'4–12',skills:['DSA','Python/Java','Web (HTML/CSS/JS)','Git','SQL'],path:'Learn programming → DSA → build 3 projects → GitHub → apply for internships'},
+Data:{role:'Data Analyst / AI Engineer',icon:'📊',pkg:'4–10',skills:['Excel','SQL','Python','Statistics','Machine Learning'],path:'Excel+SQL → Python/Pandas → Statistics → Kaggle projects → ML basics'},
+Design:{role:'UI/UX Designer',icon:'🎨',pkg:'3.5–9',skills:['Figma','Design thinking','Prototyping','User research'],path:'Design basics → Figma → 3 case studies → portfolio website'},
+Business:{role:'Business Analyst / Marketing',icon:'📈',pkg:'3.5–9',skills:['Excel','Communication','Digital marketing','Analytics'],path:'Excel + analytics → digital marketing certs → internships → case interviews'},
+Core:{role:'Core Engineer (Mech/Civil/EEE)',icon:'⚙️',pkg:'3–7',skills:['CAD','Domain subjects','Aptitude','MATLAB/PLC'],path:'Strengthen core subjects → CAD/PLC tools → GATE or campus drives → projects'}};
+
+const Q=[
+['I enjoy solving logic puzzles and coding problems.','Tech'],['I like finding patterns in numbers and charts.','Data'],
+['I enjoy sketching, colours and making things look good.','Design'],['I like leading teams and persuading people.','Business'],
+['I like understanding how machines or circuits work.','Core'],['I would like to build apps or websites.','Tech'],
+['I enjoy working with spreadsheets and statistics.','Data'],['I care about how users feel while using a product.','Design'],
+['I enjoy planning budgets, sales or campaigns.','Business'],['I like hands-on lab work and technical drawings.','Core'],
+['I like automating boring tasks with code.','Tech'],['I like predicting outcomes from data.','Data']];
+const OPT=[['Strongly agree',3],['Agree',2],['Neutral',1],['Disagree',0]];
+let qi=0,sc={};
+function showQ(){if(qi>=Q.length)return finish();$('#qn').textContent=`Question ${qi+1} of ${Q.length}`;$('#qb').style.width=(qi/Q.length*100)+'%';$('#q').textContent=Q[qi][0];
+$('#opts').innerHTML='';OPT.forEach(o=>{const b=document.createElement('button');b.className='opt';b.textContent=o[0];b.onclick=()=>{sc[Q[qi][1]]=(sc[Q[qi][1]]||0)+o[1];qi++;showQ()};$('#opts').appendChild(b)})}
+function finish(){$('#qb').style.width='100%';$('#q').textContent='Test complete 🎉';$('#opts').innerHTML='';$('#qn').textContent='';
+const r=Object.keys(C).map(k=>[k,sc[k]||0]).sort((a,b)=>b[1]-a[1]);st.res=r;save();renderRes()}
+function renderRes(){if(!st.res)return;const r=st.res,top=C[r[0][0]];const mx=Math.max(...r.map(x=>x[1]),1);
+$('#res').innerHTML=`<div class="card" style="margin-top:12px"><h3>Your results</h3>${r.map(x=>`<p class="mut" style="margin:8px 0 3px">${x[0]} — ${x[1]} pts</p><div class="bar"><i style="width:${x[1]/mx*100}%"></i></div>`).join('')}
+<h3 style="margin-top:16px">🤖 AI suggestion: ${top.icon} ${top.role}</h3><p>Typical fresher package: <b>${top.pkg} LPA</b></p><p class="mut">${top.path}</p>
+<button class="btn" onclick="go('courses')">See matching courses</button> <button class="btn" onclick="resetT()" style="background:var(--mut)">Retake</button></div>`;
+renderTop()}
+function resetT(){qi=0;sc={};st.res=null;save();$('#res').innerHTML='';renderTop();showQ()}
+function renderTop(){const t=st.res?C[st.res[0][0]]:null;$('#topc').innerHTML=t?`<div class="card" style="margin:12px 0;border-color:var(--acc)"><h3>⭐ Best match for you: ${t.icon} ${t.role}</h3><p class="mut">${t.path}</p></div>`:''}
+
+$('#cgrid').innerHTML=Object.values(C).map(c=>`<div class="card"><h3>${c.icon} ${c.role}</h3><p class="mut">Fresher package: ${c.pkg} LPA</p>${c.skills.map(s=>`<span class="tag">${s}</span>`).join('')}<p class="mut">${c.path}</p></div>`).join('');
+
+const CO=[
+['Tech','CS50: Intro to Computer Science','Harvard (free)','https://cs50.harvard.edu/x/'],
+['Tech','freeCodeCamp Web Development','freeCodeCamp','https://www.freecodecamp.org/learn'],
+['Tech','MDN Learn Web Development','Mozilla','https://developer.mozilla.org/en-US/docs/Learn'],
+['Tech','Python for Everybody','Coursera (audit free)','https://www.coursera.org/specializations/python'],
+['Data','Kaggle Learn: Python, Pandas, ML','Kaggle (free)','https://www.kaggle.com/learn'],
+['Data','Machine Learning Specialization','Coursera / DeepLearning.AI','https://www.coursera.org/specializations/machine-learning-introduction'],
+['Data','Statistics & Probability','Khan Academy','https://www.khanacademy.org/math/statistics-probability'],
+['Design','Google UX Design Certificate','Coursera','https://www.coursera.org/professional-certificates/google-ux-design'],
+['Design','Figma Learn','Figma (free)','https://help.figma.com/hc/en-us/categories/360002051613'],
+['Business','Google Digital Garage: Fundamentals of Digital Marketing','Google (free)','https://learndigital.withgoogle.com/digitalgarage'],
+['Business','Google Data Analytics Certificate','Coursera','https://www.coursera.org/professional-certificates/google-data-analytics'],
+['Core','NPTEL Engineering Courses','IITs / IISc (free)','https://nptel.ac.in/'],
+['Core','SWAYAM Online Courses','Govt. of India','https://swayam.gov.in/'],
+['All','Aptitude & Reasoning Practice','IndiaBIX','https://www.indiabix.com/'],
+['All','Coding Practice','LeetCode','https://leetcode.com/problemset/'],
+['All','Communication & Interview Skills','Coursera / Khan Academy','https://www.khanacademy.org/college-careers-more/career-content']];
+$('#cf').innerHTML='<option value="">All categories</option>'+['Tech','Data','Design','Business','Core','All'].map(k=>`<option>${k}</option>`).join('');
+function renderCo(){const f=$('#cf').value;$('#cogrid').innerHTML=CO.map((c,i)=>({c,i})).filter(o=>!f||o.c[0]===f).map(({c,i})=>`<div class="card"><span class="tag">${c[0]}</span><h3>${c[1]}</h3><p class="mut">${c[2]}</p><a class="btn" href="${c[3]}" target="_blank" rel="noopener">Open course</a><label class="ck"><input type="checkbox" data-i="${i}" ${st.done[i]?'checked':''}> Completed</label></div>`).join('');
+document.querySelectorAll('#cogrid input').forEach(x=>x.onchange=()=>{st.done[x.dataset.i]=x.checked;save();prog()})}
+$('#cf').onchange=renderCo;
+const CK=['Build a resume (1 page, projects first)','Create LinkedIn & GitHub profiles','Complete 2–3 real projects','Practise aptitude & reasoning daily','Solve 100+ coding / domain problems','Do 3 mock interviews','Prepare HR answers (introduction, strengths, goals)','Apply to 10 internships/jobs per week'];
+function renderChk(){$('#chk').innerHTML=CK.map((c,i)=>`<label class="ck"><input type="checkbox" data-k="${i}" ${st.chk[i]?'checked':''}> ${c}</label>`).join('');document.querySelectorAll('#chk input').forEach(x=>x.onchange=()=>{st.chk[x.dataset.k]=x.checked;save();prog()})}
+$('#ptab').innerHTML=Object.values(C).map(c=>`<tr><td>${c.icon} ${c.role}</td><td>${c.pkg}</td><td>${c.skills.slice(0,3).join(', ')}</td></tr>`).join('');
+function prog(){const d=Object.values(st.done).filter(Boolean).length,k=Object.values(st.chk).filter(Boolean).length,t=CO.length+CK.length,p=Math.round((d+k)/t*100);$('#pbar').style.width=p+'%';$('#ptxt').textContent=`${p}% complete — ${d}/${CO.length} courses, ${k}/${CK.length} placement tasks`}
+
+const KB=[
+[/resume|cv/,'Keep your resume to one page: summary, skills, 2–3 projects with results, education, certificates. Use action verbs and numbers.'],
+[/interview|hr/,'Practise: self-introduction, strengths/weaknesses, why this company, and one project explained in depth. Do mock interviews with friends.'],
+[/package|salary|lpa/,'Fresher packages in India typically range 3–12 LPA depending on role and company. See the Placements tab for role-wise ranges.'],
+[/data|analyst|ml|ai/,'Roadmap: Excel → SQL → Python (Pandas) → Statistics → Kaggle projects → basic ML. Start with Kaggle Learn in the Courses tab.'],
+[/software|developer|coding|program|web/,'Roadmap: pick one language → DSA basics → HTML/CSS/JS → Git → build 3 projects → practise on LeetCode → apply for internships.'],
+[/design|ux|ui/,'Learn design principles → Figma → build 3 case studies → publish a portfolio. Google UX Design is a good start.'],
+[/placement|job|intern/,'Use Internshala, Naukri, LinkedIn and Unstop. Apply weekly, tailor your resume and follow the checklist in Placements.'],
+[/skill|learn|course/,'Take the Skills Test first, then choose courses matching your top category. Complete one course at a time and build a project from it.'],
+[/hello|hi|hey/,'Hello! I am your AI Mentor. Ask about careers, skills, resume, interviews or packages.']];
+function add(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;$('#chat').appendChild(d);$('#chat').scrollTop=1e9}
+function ask(){const v=$('#ai-in').value.trim();if(!v)return;add(v,'u');$('#ai-in').value='';const k=KB.find(x=>x[0].test(v.toLowerCase()));let a=k?k[1]:'I can help with careers, skills, resume, interviews, jobs and packages. Try the Skills Test for personalised guidance.';
+if(!k&&st.res)a+=` Based on your test, focus on ${C[st.res[0][0]].role}.`;setTimeout(()=>add(a,'b'),300)}
+$('#send').onclick=ask;$('#ai-in').onkeydown=e=>{if(e.key==='Enter')ask()};
+add('Hi! I am your AI Mentor. How can I help with your career today?','b');
+showQ();renderRes();renderTop();renderCo();renderChk();prog();
+</script></body></html>
